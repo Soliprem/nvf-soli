@@ -9,9 +9,11 @@
     nvf,
     nixpkgs,
     ...
-  }: {
+  } @ inputs: let
+    inherit (self) outputs;
+  in {
     packages."x86_64-linux".default =
-      (nvf.lib.neovimConiguration {
+      (nvf.lib.neovimConfiguration {
         pkgs = nixpkgs.legacyPackages."x86_64-linux";
         modules = [./configuration.nix];
       })
