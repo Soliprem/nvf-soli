@@ -1,7 +1,6 @@
 {
   inputs = {
-    nvf.url = "github:notashelf/nvf";
-    norg-meta.url = "github:nvim-neorg/tree-sitter-norg-meta";
+    nvf.url = "github:notashelf/nvf/v0.8";
     nixpkgs.follows = "nvf";
   };
 
@@ -9,7 +8,6 @@
     self,
     nvf,
     nixpkgs,
-    norg-meta,
     ...
   } @ inputs: let
     inherit (self) outputs;

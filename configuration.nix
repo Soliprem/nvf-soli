@@ -1,12 +1,31 @@
 {
   pkgs,
-  inputs,
   ...
-}: {
+}:
+{
   vim = {
+    repl = {
+      conjure.enable = true;
+    };
+    spellcheck = {
+      enable = true;
+      languages = [
+        "en"
+        "it"
+      ];
+    };
+    clipboard = {
+      enable = true;
+      registers = "unnamedplus";
+      providers.wl-copy.enable = true;
+    };
+    options = {
+      shiftwidth = 2;
+      conceallevel = 1;
+      scrolloff = 1;
+    };
     preventJunkFiles = true;
     searchCase = "smart";
-    useSystemClipboard = true;
     viAlias = true;
     vimAlias = true;
     undoFile = {
@@ -18,6 +37,7 @@
       logFile = "/tmp/nvim.log";
     };
     lsp = {
+      enable = true;
       formatOnSave = false;
       lspkind.enable = false;
       lightbulb.enable = false;
@@ -27,8 +47,7 @@
         setupOpts.buffers.write_to_disk = true;
       };
       trouble.enable = true;
-      lspSignature.enable = true;
-      lsplines.enable = false;
+      lspSignature.enable = false; # doesn't work with blink
       nvim-docs-view.enable = false; # lags *horribly* whenever l is pressed
     };
 
@@ -40,20 +59,20 @@
     };
 
     languages = {
-      enableLSP = true;
       enableFormat = true;
       enableTreesitter = true;
       enableExtraDiagnostics = true;
       nim.enable = true;
       nix.enable = true;
-      markdown = {
-        enable = true;
-        # format.extraFiletypes = ["quarto" "rmarkdown"];
-      };
+      markdown.enable = true;
       html.enable = true;
       css.enable = true;
-      r.enable = true;
+      r = {
+        enable = true;
+        format.type = "styler";
+      };
       sql.enable = true;
+      haskell.enable = true;
       java.enable = false;
       ts = {
         enable = true;
@@ -66,21 +85,24 @@
       zig.enable = true;
       ocaml.enable = true;
       nu.enable = true;
-      python.enable = true;
+      python = {
+        enable = true;
+        lsp.servers = "pyright";
+      };
       dart.enable = false;
       lua.enable = true;
       bash.enable = true;
       tailwind.enable = false;
       typst.enable = true;
-      julia.enable = true;
+      julia.enable = false;
       clang = {
         enable = true;
-        lsp.server = "clangd";
+        lsp.servers = "clangd";
       };
 
       rust = {
         enable = true;
-        crates.enable = true;
+        extensions.crates-nvim.enable = true;
       };
     };
 
@@ -110,9 +132,8 @@
     };
 
     # luaConfigRC.basic = ''
-    #   -- vim.opt.undofile = true
-    # vim.g.nvim_ghost_use_script = 1
-    # vim.g.nvim_ghost_python_executable = 'python'
+    #   vim.g.nvim_ghost_use_script = 1
+    #   vim.g.nvim_ghost_python_executable = '${ghosttext-dependencies}/bin/python'
     # '';
 
     theme = {
@@ -124,7 +145,17 @@
 
     autopairs.nvim-autopairs.enable = true;
 
-    autocomplete.nvim-cmp.enable = true;
+    autocomplete.blink-cmp = {
+      enable = true;
+      friendly-snippets.enable = true;
+      setupOpts = {
+        signature.enabled = true;
+        cmdline = {
+          keymap.preset = "cmdline";
+          completion.menu.auto_show = true;
+        };
+      };
+    };
     snippets.luasnip.enable = true;
 
     filetree = {
@@ -140,9 +171,12 @@
     treesitter = {
       context.enable = true;
       grammars = [
-        inputs.norg-meta.defaultPackage.${pkgs.system}
         pkgs.vimPlugins.nvim-treesitter-parsers.nu
         pkgs.vimPlugins.nvim-treesitter-parsers.kdl
+        pkgs.vimPlugins.nvim-treesitter-parsers.rnoweb
+        pkgs.vimPlugins.nvim-treesitter-parsers.yaml
+        pkgs.vimPlugins.nvim-treesitter-parsers.markdown
+        pkgs.vimPlugins.nvim-treesitter-parsers.r
       ];
     };
 
@@ -180,6 +214,8 @@
     };
 
     utility = {
+      undotree.enable = true;
+      oil-nvim.enable = true;
       ccc.enable = false;
       vim-wakatime.enable = true;
       icon-picker.enable = true;
@@ -199,11 +235,27 @@
 
       images = {
         image-nvim.enable = false;
+        img-clip.enable = true;
       };
     };
 
     notes = {
-      obsidian.enable = false; # FIXME: neovim fails to build if obsidian is enabled
+      obsidian = {
+        enable = true;
+        setupOpts = {
+          workspaces = [
+            {
+              name = "notes";
+              path = "~/Documents/Nextcloud/Notes/markdown";
+            }
+          ];
+          templates = {
+            folder = "templates";
+            date_format = "%Y-%m-%d-%a";
+            time_format = "%H:%M";
+          };
+        };
+      };
       neorg = {
         enable = true;
         setupOpts = {
@@ -260,9 +312,57 @@
         };
       };
     };
-
     assistant = {
+      avante-nvim = {
+        enable = true;
+        setupOpts = {
+          provider = "ollama";
+          providers = {
+            openai = {
+              endpoint = "https://api.openai.com/v1";
+              model = "gpt-4o"; # your desired model (or use gpt-4o, etc.)
+              timeout = 30000; # Timeout in milliseconds, increase this for reasoning models
+              extra_request_body = {
+                temperature = 0;
+                max_completion_tokens = 8192; # Increase this to include reasoning tokens (for reasoning models)
+                reasoning_effort = "medium"; # low|medium|high, only used for reasoning models
+              };
+            };
+            groq = {
+              __inherited_from = "openai";
+              api_key_name = "groq";
+              endpoint = "https://api.groq.com/openai/v1/";
+              model = "llama-3.3-70b-versatile";
+              # disable_tools = true;
+              # extra_request_body = {
+              #   temperature = 1;
+              #   max_tokens = 32768; # remember to increase this value, otherwise it will stop generating halfway
+              # };
+            };
+            ollama = {
+              endpoint = "http://127.0.0.1:11434";
+              model = "gpt-oss:latest";
+            };
+          };
+        };
+      };
       chatgpt.enable = false;
+      codecompanion-nvim = {
+        enable = false;
+        setupOpts = {
+          strategies = {
+            chat = {
+              adapter = "ollama";
+            };
+            inline = {
+              adapter = "ollama";
+            };
+            cmd = {
+              adapter = "ollama";
+            };
+          };
+        };
+      };
       copilot = {
         enable = false;
         cmp.enable = true;
@@ -285,7 +385,7 @@
       neocord.enable = false;
     };
 
-    lazy.plugins = with pkgs.vimPlugins; {
+    extraPlugins = {
       # ghost-nvim = {
       #   package = pkgs.vimUtils.buildVimPlugin {
       #     name = "ghost-nvim";
@@ -300,19 +400,37 @@
       #     '';
       #   };
       # };
-      ${oil-nvim.pname} = {
+      R-nvim = {
+        package = pkgs.vimUtils.buildVimPlugin {
+          name = "R-nvim";
+          src = pkgs.fetchFromGitHub {
+            owner = "R-nvim";
+            repo = "R.nvim";
+            rev = "68a033246a1863c8028f7d7aae91d65fc06058c8";
+            hash = "sha256-GhgzmIylttMyaV/B2QjlRcdtHW/Epw8ghQtJbQEJZN0=";
+          };
+          doCheck = false;
+          setup = ''
+            require('r').setup(),
+          '';
+        };
+      };
+    };
+
+    lazy.plugins = with pkgs.vimPlugins; {
+      ${twilight-nvim.pname} = {
         lazy = true;
-        package = oil-nvim;
-        setupModule = "oil";
-        after = ''
-          print('loaded oil')
-        '';
-        cmd = ["Oil"];
+        package = twilight-nvim;
+        setupModule = "twilight-nvim";
+        cmd = ["Twilight"];
+        after = ''print('hello')'';
         keys = [
           {
-            key = "-";
-            action = ":Oil<CR>";
+            key = "<leader>ut";
             mode = "n";
+            action = '':Twilight<CR>'';
+            silent = true;
+            desc = "Toggle Twilight";
           }
         ];
       };
@@ -321,6 +439,16 @@
         package = zen-mode-nvim;
         setupModule = "zen-mode-nvim";
         cmd = ["ZenMode"];
+        after = ''print('hello')'';
+        keys = [
+          {
+            key = "<leader>uz";
+            mode = "n";
+            action = '':ZenMode<CR>'';
+            silent = true;
+            desc = "Toggle ZenMode";
+          }
+        ];
       };
       ${eyeliner-nvim.pname} = {
         package = eyeliner-nvim;
@@ -361,6 +489,27 @@
           open_cmd = "zen %s";
         };
       };
+      ${harpoon2.pname} = {
+        lazy = true;
+        cmd = "TypstPreview";
+        package = harpoon2;
+        keys = [
+          {
+            key = "<leader>ad";
+            mode = "n";
+            action = '':lua require("harpoon"):list():add()<CR>'';
+            silent = true;
+            desc = "Harpoon add";
+          }
+          {
+            key = "<leader>as";
+            mode = "n";
+            action = '':lua require("harpoon").ui:toggle_quick_menu(require("harpoon"):list())<CR>'';
+            silent = true;
+            desc = "Harpoon switch";
+          }
+        ];
+      };
     };
     keymaps = [
       {
@@ -375,7 +524,21 @@
         mode = "n";
         action = ":Telescope find_files<CR>";
         silent = true;
-        desc = "removes search highlight when pressing esc";
+        desc = "Look for Files";
+      }
+      {
+        key = "-";
+        action = ":Oil<CR>";
+        mode = "n";
+        silent = true;
+        desc = "enable Oil";
+      }
+      {
+        key = "<F5>";
+        action = ":UndotreeToggle<CR>";
+        mode = "n";
+        silent = true;
+        desc = "Toggle Undotree";
       }
     ];
   };
