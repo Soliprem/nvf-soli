@@ -3,7 +3,7 @@
   ...
 }:
 {
-  vim = {
+  config.vim = {
     repl = {
       conjure.enable = true;
     };

@@ -1,7 +1,7 @@
 {
   inputs = {
     nvf.url = "github:notashelf/nvf/v0.8";
-    nixpkgs.follows = "nvf";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs = {
@@ -17,14 +17,9 @@
     packages.${system}.default =
       (nvf.lib.neovimConfiguration {
         inherit pkgs;
-        modules = [{
-          # Import your configuration module and pass both inputs and pkgs
-          imports = [(
-            import ./configuration.nix {
-              inherit pkgs inputs;
-            }
-          )];
-        }];
+        modules = [
+          ./configuration.nix
+        ];
       })
       .neovim;
   };
