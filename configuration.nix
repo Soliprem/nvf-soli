@@ -9,6 +9,7 @@
     };
     spellcheck = {
       enable = true;
+      programmingWordlist.enable = true;
       languages = [
         "en"
         "it"
