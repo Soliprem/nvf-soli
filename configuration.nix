@@ -43,6 +43,7 @@
       lspkind.enable = false;
       lightbulb.enable = false;
       lspsaga.enable = false;
+      servers.nixd.settings.nil.nix.autoArchive = true;
       otter-nvim = {
         enable = true;
         setupOpts.buffers.write_to_disk = true;
@@ -216,7 +217,7 @@
 
     utility = {
       undotree.enable = true;
-      oil-nvim.enable = true;
+      oil-nvim.enable = false;
       ccc.enable = false;
       vim-wakatime.enable = true;
       icon-picker.enable = true;
