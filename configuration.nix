@@ -217,7 +217,7 @@
 
     utility = {
       undotree.enable = true;
-      oil-nvim.enable = false;
+      oil-nvim.enable = true;
       ccc.enable = false;
       vim-wakatime.enable = true;
       icon-picker.enable = true;
