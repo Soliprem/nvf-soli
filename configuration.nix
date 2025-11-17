@@ -43,7 +43,7 @@
       lspkind.enable = false;
       lightbulb.enable = false;
       lspsaga.enable = false;
-      servers.nixd.settings.nil.nix.autoArchive = true;
+      servers.nil.settings.nil.nix.autoArchive = true;
       otter-nvim = {
         enable = true;
         setupOpts.buffers.write_to_disk = true;
