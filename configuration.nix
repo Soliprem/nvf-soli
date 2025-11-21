@@ -425,7 +425,6 @@
         package = twilight-nvim;
         setupModule = "twilight-nvim";
         cmd = ["Twilight"];
-        after = ''print('hello')'';
         keys = [
           {
             key = "<leader>ut";
@@ -441,7 +440,6 @@
         package = zen-mode-nvim;
         setupModule = "zen-mode-nvim";
         cmd = ["ZenMode"];
-        after = ''print('hello')'';
         keys = [
           {
             key = "<leader>uz";
@@ -455,7 +453,6 @@
       ${eyeliner-nvim.pname} = {
         package = eyeliner-nvim;
         event = ["BufEnter"];
-        after = ''print('hello')'';
       };
       ${quarto-nvim.pname} = {
         lazy = true;
@@ -490,6 +487,23 @@
         setupOpts = {
           open_cmd = "zen %s";
         };
+      };
+      ${boole-nvim.pname} = {
+        lazy = true;
+        event = ["BufEnter"];
+        keys = [
+          {
+            key = "C-A";
+            action = "<cmd>Boole increment";
+            mode = "n";
+          }
+          {
+            key = "C-X";
+            action = "<cmd>Boole decrement";
+            mode = "n";
+          }
+        ];
+        package = boole-nvim;
       };
       ${harpoon2.pname} = {
         lazy = true;
