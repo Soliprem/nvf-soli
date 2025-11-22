@@ -1,8 +1,4 @@
-{
-  pkgs,
-  ...
-}:
-{
+{pkgs, ...}: {
   config.vim = {
     repl = {
       conjure.enable = true;
@@ -491,19 +487,21 @@
       ${boole-nvim.pname} = {
         lazy = true;
         event = ["BufEnter"];
-        keys = [
-          {
-            key = "C-A";
-            action = "<cmd>Boole increment<cr>";
-            mode = "n";
-          }
-          {
-            key = "C-X";
-            action = "<cmd>Boole decrement<cr>";
-            mode = "n";
-          }
-        ];
         package = boole-nvim;
+        setupModule = "boole";
+        setupOpts = {
+          mappings = {
+            increment = "<c-a>";
+            decrement = "<c-x>";
+          };
+          additions = [
+            ["Foo" "Bar"]
+            ["tic" "tac" "toe"]
+          ];
+          allow_caps_additions = [
+            ["enable" "disable"]
+          ];
+        };
       };
       ${harpoon2.pname} = {
         lazy = true;
