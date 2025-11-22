@@ -494,12 +494,12 @@
         keys = [
           {
             key = "C-A";
-            action = "<cmd>Boole increment";
+            action = "<cmd>Boole increment<cr>";
             mode = "n";
           }
           {
             key = "C-X";
-            action = "<cmd>Boole decrement";
+            action = "<cmd>Boole decrement<cr>";
             mode = "n";
           }
         ];
