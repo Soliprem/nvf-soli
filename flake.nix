@@ -1,7 +1,7 @@
 {
   inputs = {
     nvf.url = "github:notashelf/nvf/v0.8";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.follows = "nvf/nixpkgs";
   };
 
   outputs = {
