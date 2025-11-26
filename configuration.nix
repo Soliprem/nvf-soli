@@ -67,7 +67,7 @@
       css.enable = true;
       r = {
         enable = true;
-        format.type = "styler";
+        format.type = ["styler"];
       };
       sql.enable = true;
       haskell.enable = true;
@@ -85,7 +85,7 @@
       nu.enable = true;
       python = {
         enable = true;
-        lsp.servers = "pyright";
+        lsp.servers = ["pyright"];
       };
       dart.enable = false;
       lua.enable = true;
@@ -95,7 +95,7 @@
       julia.enable = false;
       clang = {
         enable = true;
-        lsp.servers = "clangd";
+        lsp.servers = ["clangd"];
       };
 
       rust = {
