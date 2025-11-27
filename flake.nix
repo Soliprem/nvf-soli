@@ -4,31 +4,34 @@
     nixpkgs.follows = "nvf/nixpkgs";
   };
 
-  outputs = {
-    self,
-    nvf,
-    nixpkgs,
-    ...
-  } @ inputs: let
-    inherit (self) outputs;
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    packages.${system}.default =
-      (nvf.lib.neovimConfiguration {
-        inherit pkgs;
-        modules = [
-          ./configuration.nix
-        ];
-      })
-      .neovim;
-    packages.${system}.minimal =
-      (nvf.lib.neovimConfiguration {
-        inherit pkgs;
-        modules = [
-          ./configuration-minimal.nix
-        ];
-      })
-      .neovim;
-  };
+  outputs =
+    {
+      self,
+      nvf,
+      nixpkgs,
+      ...
+    }@inputs:
+    let
+      inherit (self) outputs;
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in
+    {
+      packages.${system} = {
+        default =
+          (nvf.lib.neovimConfiguration {
+            inherit pkgs;
+            modules = [
+              ./configuration.nix
+            ];
+          }).neovim;
+        minimal =
+          (nvf.lib.neovimConfiguration {
+            inherit pkgs;
+            modules = [
+              ./configuration-minimal.nix
+            ];
+          }).neovim;
+      };
+    };
 }
