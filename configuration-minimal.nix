@@ -63,8 +63,8 @@
       nim.enable = false;
       nix.enable = true;
       markdown.enable = true;
-      html.enable = true;
-      css.enable = true;
+      html.enable = false;
+      css.enable = false;
       r = {
         enable = false;
         format.type = [ "styler" ];
@@ -239,7 +239,7 @@
 
     notes = {
       obsidian = {
-        enable = true;
+        enable = false;
         setupOpts = {
           workspaces = [
             {
@@ -255,7 +255,7 @@
         };
       };
       neorg = {
-        enable = true;
+        enable = false;
         setupOpts = {
           load = {
             "core.defaults" = { };
