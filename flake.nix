@@ -22,5 +22,13 @@
         ];
       })
       .neovim;
+    packages.${system}.minimal =
+      (nvf.lib.neovimConfiguration {
+        inherit pkgs;
+        modules = [
+          ./configuration-minimal.nix
+        ];
+      })
+      .neovim;
   };
 }
