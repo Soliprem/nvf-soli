@@ -125,7 +125,7 @@
     statusline = {
       lualine = {
         enable = true;
-        theme = "tokyonight";
+        theme = "gruvbox";
       };
     };
 
@@ -136,8 +136,8 @@
 
     theme = {
       enable = true;
-      name = "tokyonight";
-      style = "night";
+      name = "gruvbox";
+      style = "dark";
       transparent = false;
     };
 
