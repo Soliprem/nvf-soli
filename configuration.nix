@@ -20,7 +20,6 @@
       shiftwidth = 2;
       conceallevel = 1;
       scrolloff = 1;
-      termguicolors = true;
     };
     preventJunkFiles = true;
     searchCase = "smart";
