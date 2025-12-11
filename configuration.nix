@@ -566,7 +566,7 @@
         desc = "Toggle Undotree";
       }
       {
-        key = "<leader>lf";
+        key = "<leader>lc";
         mode = "n";
         lua = true;
         action = /* lua */ ''
@@ -576,6 +576,7 @@
             })
           end
         '';
+        desc = "format using Conform";
       }
     ];
   };
