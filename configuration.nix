@@ -566,7 +566,7 @@
         desc = "Toggle Undotree";
       }
       {
-        key = "<leader>gq";
+        key = "<leader>lf";
         mode = "n";
         lua = true;
         action = /* lua */ ''
