@@ -565,6 +565,16 @@
         silent = true;
         desc = "Toggle Undotree";
       }
+      {
+        key = "<leader>lf";
+        mode = [ "n" ];
+        lua = true;
+        action = ''
+          require('conform').format({
+            lsp_format = "fallback"
+          })
+        '';
+      }
     ];
   };
 }
