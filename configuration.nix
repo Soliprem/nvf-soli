@@ -63,10 +63,7 @@
       enableExtraDiagnostics = true;
       nim.enable = true;
       nix.enable = true;
-      markdown = {
-        enable = true;
-        format.enable = true;
-      };
+      markdown.enable = true;
       html.enable = true;
       css.enable = true;
       r = {
