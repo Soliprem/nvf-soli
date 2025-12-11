@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   config.vim = {
     repl = {
       conjure.enable = true;
@@ -62,12 +63,15 @@
       enableExtraDiagnostics = true;
       nim.enable = true;
       nix.enable = true;
-      markdown.enable = true;
+      markdown = {
+        enable = true;
+        format.enable = true;
+      };
       html.enable = true;
       css.enable = true;
       r = {
         enable = true;
-        format.type = ["styler"];
+        format.type = [ "styler" ];
       };
       sql.enable = true;
       haskell.enable = true;
@@ -85,7 +89,7 @@
       nu.enable = true;
       python = {
         enable = true;
-        lsp.servers = ["pyright"];
+        lsp.servers = [ "pyright" ];
       };
       dart.enable = false;
       lua.enable = true;
@@ -95,7 +99,7 @@
       julia.enable = false;
       clang = {
         enable = true;
-        lsp.servers = ["clangd"];
+        lsp.servers = [ "clangd" ];
       };
 
       rust = {
@@ -258,14 +262,14 @@
         enable = true;
         setupOpts = {
           load = {
-            "core.defaults" = {};
-            "core.concealer" = {};
+            "core.defaults" = { };
+            "core.concealer" = { };
             "core.completion" = {
               config.engine = "nvim-cmp";
             };
-            "core.export" = {};
-            "core.summary" = {};
-            "core.text-objects" = {};
+            "core.export" = { };
+            "core.summary" = { };
+            "core.text-objects" = { };
             "core.dirman" = {
               config = {
                 workspaces = {
@@ -420,7 +424,7 @@
         lazy = true;
         package = twilight-nvim;
         setupModule = "twilight-nvim";
-        cmd = ["Twilight"];
+        cmd = [ "Twilight" ];
         keys = [
           {
             key = "<leader>ut";
@@ -435,7 +439,7 @@
         lazy = true;
         package = zen-mode-nvim;
         setupModule = "zen-mode-nvim";
-        cmd = ["ZenMode"];
+        cmd = [ "ZenMode" ];
         keys = [
           {
             key = "<leader>uz";
@@ -448,7 +452,7 @@
       };
       ${eyeliner-nvim.pname} = {
         package = eyeliner-nvim;
-        event = ["BufEnter"];
+        event = [ "BufEnter" ];
       };
       ${quarto-nvim.pname} = {
         lazy = true;
@@ -486,7 +490,7 @@
       };
       ${boole-nvim.pname} = {
         lazy = true;
-        event = ["BufEnter"];
+        event = [ "BufEnter" ];
         package = boole-nvim;
         setupModule = "boole";
         setupOpts = {
@@ -495,11 +499,21 @@
             decrement = "<c-x>";
           };
           additions = [
-            ["Foo" "Bar"]
-            ["tic" "tac" "toe"]
+            [
+              "Foo"
+              "Bar"
+            ]
+            [
+              "tic"
+              "tac"
+              "toe"
+            ]
           ];
           allow_caps_additions = [
-            ["enable" "disable"]
+            [
+              "enable"
+              "disable"
+            ]
           ];
         };
       };
