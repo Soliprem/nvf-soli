@@ -568,8 +568,13 @@
       {
         key = "<leader>lf";
         mode = "n";
-        action = ''
-          <cmd>require('conform').format({lsp_format = "fallback"})<cr>
+        lua = true;
+        action = /* lua */ ''
+          function()
+            require('conform').format({
+              lsp_format = "fallback"
+            })
+          end
         '';
       }
     ];
