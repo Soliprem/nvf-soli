@@ -469,13 +469,6 @@
         setupOpts = {
           open_cmd = "zen %s";
         };
-        keys = [
-          {
-            key = "<leader>lg";
-            action = "<cmd>LazyGit<cr>";
-            mode = "n";
-          }
-        ];
       };
       ${typst-preview-nvim.pname} = {
         lazy = true;
