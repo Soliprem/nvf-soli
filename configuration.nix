@@ -565,18 +565,6 @@
         silent = true;
         desc = "Toggle Undotree";
       }
-      {
-        key = "<leader>gq";
-        mode = "n";
-        lua = true;
-        action = /* lua */ ''
-          function()
-            require('conform').format({
-              lsp_format = "fallback"
-            })
-          end
-        '';
-      }
     ];
   };
 }
