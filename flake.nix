@@ -1,6 +1,6 @@
 {
   inputs = {
-    nvf.url = "github:notashelf/nvf/v0.8";
+    nvf.url = "github:notashelf/nvf";
     nixpkgs.follows = "nvf/nixpkgs";
   };
 
