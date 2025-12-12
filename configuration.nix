@@ -313,7 +313,7 @@
     };
     assistant = {
       avante-nvim = {
-        enable = true;
+        enable = false;
         setupOpts = {
           provider = "ollama";
           providers = {
